@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VidicBoxApplication {
+//@EnableJpaRepositories("com.vidic.vidicbox.repositories")
+public class vidicboxApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VidicBoxApplication.class, args);
+		SpringApplication.run(vidicboxApplication.class, args);
 	}
 
 }

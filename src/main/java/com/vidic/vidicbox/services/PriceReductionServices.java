@@ -19,15 +19,15 @@ public class PriceReductionServices {
         return priceReductionsList;
     }
 
-    public PriceReductions getPriceReductionsById(Long priceReductionsId) {
-        return priceReductionsRepository.findById(priceReductionsId).get();
+    public PriceReductions getPriceReductionsById(Long idPriceReduction) {
+        return priceReductionsRepository.findById(idPriceReduction).get();
     }
 
     public void saveOrUpdate(PriceReductions priceReductions) {
         priceReductionsRepository.save(priceReductions);
     }
 
-    public void delete(Long priceReductionsId) {
-        priceReductionsRepository.deleteById(priceReductionsId);
+    public void delete(Long idPriceReduction) {
+        priceReductionsRepository.deleteById(idPriceReduction);
     }
 }
