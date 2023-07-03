@@ -8,7 +8,7 @@ import java.util.Date;
 public class PriceReductions {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "pricereductions_id_seq")
-    @SequenceGenerator(name = "pricereductions_id_seq", sequenceName = "pricereductions_id_seq", allocationSize = 1, schema = "erp")
+    @SequenceGenerator(name = "pricereductions_id_seq", sequenceName = "pricereductions_id_seq", allocationSize = 1)
     @Column(name = "idpricereductions")
     private Long idPriceReduction;
     @Column(name = "name")
