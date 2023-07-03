@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VidicboxApplication {
+public class VidicBoxApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VidicboxApplication.class, args);
+		SpringApplication.run(VidicBoxApplication.class, args);
 	}
 
 }
