@@ -1,8 +1,10 @@
 package com.vidic.vidicbox.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +15,6 @@ public class Products {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "products_id_seq")
     @SequenceGenerator(name = "products_id_seq", sequenceName = "products_id_seq", allocationSize = 1)
-    @Column(name = "idproducts")
     private Long idProduct;
     @Column(name = "description")
     private String description;
@@ -23,13 +24,21 @@ public class Products {
     private String state;
     @ManyToMany
     @Column(name = "suppliersList")
+    @JsonIgnore
     private List<Suppliers> suppliersList;
     private Date creationDate;
     @ManyToOne
-    @JoinColumn(name="iduser", nullable=false)
+    @JoinColumn(name="user_id_seq", nullable=false)
+//    @JsonIgnore
     private Users user;
+    @ManyToOne
+    @JoinColumn(name="pricereductions_id_seq", nullable=true)
+//    @JsonIgnore
+    private PriceReductions priceReductions;
 
-    public Products(String description, Double price, String state, List<Suppliers> suppliersList, Date creationDate, Users user) {
+    public Products(String description, Double price, String state, Users user) {
+
+        List<Suppliers> suppliersList = new ArrayList<>();
         this.description = description;
         this.price = price;
         this.state = state;

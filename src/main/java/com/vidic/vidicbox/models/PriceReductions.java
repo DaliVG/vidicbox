@@ -2,6 +2,7 @@ package com.vidic.vidicbox.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="pricereductions")
@@ -9,7 +10,6 @@ public class PriceReductions {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "pricereductions_id_seq")
     @SequenceGenerator(name = "pricereductions_id_seq", sequenceName = "pricereductions_id_seq", allocationSize = 1)
-    @Column(name = "idpricereductions")
     private Long idPriceReduction;
     @Column(name = "name")
     private String priceReductionName;
@@ -17,6 +17,8 @@ public class PriceReductions {
     private Double priceReductionAmount;
     private Date StartDate;
     private Date EndDate;
+    @OneToMany(mappedBy="priceReductions")
+    private List<Products> product;
     public Long getIdPriceReduction() {
         return idPriceReduction;
     }

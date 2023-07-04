@@ -11,7 +11,6 @@ public class Suppliers {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "supplier_id_seq")
     @SequenceGenerator(name = "supplier_id_seq", sequenceName = "supplier_id_seq", allocationSize = 1)
-    @Column(name = "idsupplier")
     private Long idSupplier;
     @Column(name = "supplier")
     private String supplier;

@@ -19,17 +19,17 @@ public class ProductController {
 
     @GetMapping("/products/list")
     private List getAllProducts() {
-        List list = productsServices.getAllProducts();
+        List<Products> list = productsServices.getAllProducts().stream().toList();
         return list;
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/products/{productId}")
     private Products getProductById(@PathVariable("productId") Long productId) {
         return productsServices.getProductById(productId);
     }
 
     @PostMapping("/createproduct")
-    private ResponseEntity createEmployee(@RequestBody Products product) {
+    private ResponseEntity createProducts(@RequestBody Products product) {
         try {
             productsServices.saveOrUpdate(product);
         } catch (Exception exception) {
@@ -37,6 +37,7 @@ public class ProductController {
         }
         return new ResponseEntity("New product created with description: " + product.getDescription(), HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/products/{id}")
     private ResponseEntity deleteById(@PathVariable("productId") Long productId) {
