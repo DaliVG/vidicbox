@@ -22,7 +22,6 @@ public class ProductController {
         List<Products> list = productsServices.getAllProducts().stream().toList();
         return list;
     }
-
     @GetMapping("/products/{productId}")
     private Products getProductById(@PathVariable("productId") Long productId) {
         return productsServices.getProductById(productId);
