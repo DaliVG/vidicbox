@@ -1,10 +1,8 @@
 package com.vidic.vidicbox.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,29 +20,37 @@ public class Products {
     private Double price;
     @Column(name = "state")
     private String state;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "products_suppliers",
+            joinColumns = @JoinColumn(name = "id_product"),
+            inverseJoinColumns = @JoinColumn(name = "id_supplier"))
     @Column(name = "suppliersList")
-    @JsonIgnore
     private List<Suppliers> suppliersList;
     private Date creationDate;
     @ManyToOne
     @JoinColumn(name="user_id_seq", nullable=false)
-//    @JsonIgnore
     private Users user;
     @ManyToOne
     @JoinColumn(name="pricereductions_id_seq", nullable=true)
-//    @JsonIgnore
     private PriceReductions priceReductions;
 
-    public Products(String description, Double price, String state, Users user) {
-
-        List<Suppliers> suppliersList = new ArrayList<>();
+    public Products(String description, Double price, Users user) {
         this.description = description;
         this.price = price;
-        this.state = state;
-        this.suppliersList = suppliersList;
+        this.state = "Active";
         this.creationDate = new Date();
         this.user = user;
+    }
+
+    public void addSupplier(Suppliers supplier) {
+        this.suppliersList.add(supplier);
+    }
+    public void removeSupplier(Long idSupplier) {
+        Suppliers supplier = this.suppliersList.stream().filter(t -> t.getIdSupplier() == idSupplier).findFirst().orElse(null);
+        if (supplier != null) {
+            this.suppliersList.remove(supplier);
+        }
     }
 
     public Long getIdProduct() {
@@ -85,5 +91,12 @@ public class Products {
 
     public void setSuppliersList(List<Suppliers> suppliersList) {
         this.suppliersList = suppliersList;
+    }
+    public PriceReductions getPriceReductions() {
+        return priceReductions;
+    }
+
+    public void setPriceReductions(PriceReductions priceReductions) {
+        this.priceReductions = priceReductions;
     }
 }

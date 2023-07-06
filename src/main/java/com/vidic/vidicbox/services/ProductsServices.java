@@ -1,6 +1,5 @@
 package com.vidic.vidicbox.services;
 
-import com.vidic.vidicbox.models.PriceReductions;
 import com.vidic.vidicbox.models.Products;
 import com.vidic.vidicbox.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +14,8 @@ public class ProductsServices {
     @Autowired
     ProductsRepository productsRepository;
 
-    @Autowired
-    PriceReductions priceReductions;
-
     public List<Products> getAllProducts() {
-        List<Products> productsList = new ArrayList();
+        List<Products> productsList = new ArrayList<>();
         productsRepository.findAll().forEach(product -> productsList.add(product));
         return productsList;
     }
