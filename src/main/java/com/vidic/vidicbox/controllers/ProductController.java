@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
@@ -27,10 +28,28 @@ public class ProductController {
         return productsServices.getProductById(productId);
     }
 
-    @PostMapping("/createproduct")
+    @PutMapping("/products/modify/{productId}")
+    public ResponseEntity<Products> updateProducts(@PathVariable("productId") Long productId, @RequestBody Products product) {
+        Optional<Products> productToUpdate = Optional.ofNullable(productsServices.getProductById(productId));
+
+        if (productToUpdate.isPresent()) {
+            Products modifiedProduct = productToUpdate.get();
+            modifiedProduct.setDescription(product.getDescription());
+            modifiedProduct.setPrice(product.getPrice());
+            modifiedProduct.setPriceReductions(product.getPriceReductions());
+            modifiedProduct.setState(product.getState());
+            modifiedProduct.setUser(product.getUser());
+            productsServices.save(modifiedProduct);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/products/createproduct")
     private ResponseEntity createProducts(@RequestBody Products product) {
         try {
-            productsServices.saveOrUpdate(product);
+            productsServices.save(product);
         } catch (Exception exception) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -38,7 +57,7 @@ public class ProductController {
     }
 
 
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/products/delete/{productId}")
     private ResponseEntity deleteById(@PathVariable("productId") Long productId) {
         try {
             productsServices.delete(productId);

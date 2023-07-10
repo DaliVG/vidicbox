@@ -1,19 +1,24 @@
 package com.vidic.vidicbox.models;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name= "products")
 public class Products {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "products_id_seq")
-    @SequenceGenerator(name = "products_id_seq", sequenceName = "products_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idProduct;
+    @Column(name = "itemCode")
+    private String itemCode;
     @Column(name = "description")
     private String description;
     @Column(name = "price")
@@ -29,15 +34,15 @@ public class Products {
     private List<Suppliers> suppliersList;
     private Date creationDate;
     @ManyToOne
-    @JoinColumn(name="user_id_seq", nullable=false)
+    @JoinColumn(name="id_user", nullable=true)
     private Users user;
-    @ManyToOne
-    @JoinColumn(name="pricereductions_id_seq", nullable=true)
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="id_price_reductions", nullable=true)
     private PriceReductions priceReductions;
 
-    public Products(String description, Double price, Users user) {
+    public Products(String itemCode, String description) {
+        this.itemCode = itemCode;
         this.description = description;
-        this.price = price;
         this.state = "Active";
         this.creationDate = new Date();
         this.user = user;
@@ -51,38 +56,6 @@ public class Products {
         if (supplier != null) {
             this.suppliersList.remove(supplier);
         }
-    }
-
-    public Long getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(Long idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public List<Suppliers> getSuppliersList() {

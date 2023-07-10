@@ -24,7 +24,11 @@ public class ProductsServices {
         return productsRepository.findById(productId).orElseThrow(()-> new EntityNotFoundException("No se ha encontrado el id en BBDD."));
     }
 
-    public void saveOrUpdate(Products product) {
+    public void save(Products product) {
+        if (product.getIdProduct()==null){
+            Products newProduct = new Products(product.getItemCode(), product.getDescription());
+            productsRepository.save(newProduct);
+        }
         productsRepository.save(product);
     }
 

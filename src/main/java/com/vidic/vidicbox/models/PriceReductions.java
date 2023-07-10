@@ -1,5 +1,6 @@
 package com.vidic.vidicbox.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -11,8 +12,7 @@ import java.util.List;
 @Table(name="pricereductions")
 public class PriceReductions {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "pricereductions_id_seq")
-    @SequenceGenerator(name = "pricereductions_id_seq", sequenceName = "pricereductions_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idPriceReduction;
     @Column(name = "name")
     private String priceReductionName;
@@ -21,6 +21,7 @@ public class PriceReductions {
     private Date startDate;
     private Date endDate;
     @OneToMany(mappedBy="priceReductions")
+    @JsonIgnore
     private List<Products> productsList;
 
     public PriceReductions(String priceReductionName, Double priceReductionAmount, Date startDate, Date endDate, List<Products> product) {

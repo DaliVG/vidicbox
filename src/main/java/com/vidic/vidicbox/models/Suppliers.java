@@ -1,19 +1,22 @@
 package com.vidic.vidicbox.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name="suppliers")
 public class Suppliers {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "supplier_id_seq")
-    @SequenceGenerator(name = "supplier_id_seq", sequenceName = "supplier_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idSupplier;
     @Column(name = "supplier")
     private String supplier;
