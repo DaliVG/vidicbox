@@ -46,6 +46,7 @@ public class Products {
         this.state = "Active";
         this.creationDate = new Date();
         this.user = user;
+        this.priceReductions=null;
     }
 
     public void addSupplier(Suppliers supplier) {

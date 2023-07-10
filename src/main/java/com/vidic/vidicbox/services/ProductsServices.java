@@ -25,11 +25,12 @@ public class ProductsServices {
     }
 
     public void save(Products product) {
-        if (product.getIdProduct()==null){
-            Products newProduct = new Products(product.getItemCode(), product.getDescription());
-            productsRepository.save(newProduct);
-        }
-        productsRepository.save(product);
+        Products jeje = new Products(product.getItemCode(), product.getDescription());
+        productsRepository.save(jeje);
+    }
+
+    public void update(Products product) {
+            productsRepository.save(product);
     }
 
     public void delete(Long productId) {

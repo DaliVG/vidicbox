@@ -39,7 +39,7 @@ public class ProductController {
             modifiedProduct.setPriceReductions(product.getPriceReductions());
             modifiedProduct.setState(product.getState());
             modifiedProduct.setUser(product.getUser());
-            productsServices.save(modifiedProduct);
+            productsServices.update(modifiedProduct);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
