@@ -1,7 +1,6 @@
 package com.vidic.vidicbox.services;
 
 import com.vidic.vidicbox.models.Products;
-import com.vidic.vidicbox.repositories.PriceReductionsRepository;
 import com.vidic.vidicbox.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,6 @@ import java.util.List;
 public class ProductsServices {
     @Autowired
     ProductsRepository productsRepository;
-    @Autowired
-    PriceReductionsRepository priceReductionsRepository;
-
     public List<Products> getAllProducts() {
         List<Products> productsList = new ArrayList<>();
         productsRepository.findAll().forEach(product -> productsList.add(product));
@@ -28,8 +24,8 @@ public class ProductsServices {
     }
 
     public void save(Products product) {
-        Products jeje = new Products(product.getItemCode(), product.getDescription());
-        productsRepository.save(jeje);
+        Products productToSave = new Products(product.getItemCode(), product.getDescription());
+        productsRepository.save(productToSave);
     }
 
     public void update(Products product) {
@@ -38,8 +34,12 @@ public class ProductsServices {
 
     public void delete(Long productId) {
         Products productToDelete = productsRepository.findById(productId).orElse(null);
-        if(productToDelete.getPriceReductions().getIdPriceReduction()!=0){
+        if(productToDelete.getPriceReductions()!=null){
             productToDelete.setPriceReductions(null);
+        }
+
+        if(!productToDelete.getSuppliersList().isEmpty()){
+            productToDelete.setSuppliersList(null);
         }
         productsRepository.deleteById(productId);
     }

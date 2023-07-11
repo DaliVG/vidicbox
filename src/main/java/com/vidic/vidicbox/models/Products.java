@@ -36,7 +36,7 @@ public class Products {
     @ManyToOne
     @JoinColumn(name="id_user", nullable=true)
     private Users user;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name="id_price_reductions", nullable=true)
     private PriceReductions priceReductions;
 
@@ -45,6 +45,7 @@ public class Products {
         this.description = description;
         this.state = "Active";
         this.creationDate = new Date();
+        this.priceReductions= null;
         this.user = user;
     }
 

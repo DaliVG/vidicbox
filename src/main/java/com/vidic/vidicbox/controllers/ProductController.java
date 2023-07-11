@@ -37,6 +37,7 @@ public class ProductController {
             modifiedProduct.setDescription(product.getDescription());
             modifiedProduct.setPrice(product.getPrice());
             modifiedProduct.setPriceReductions(product.getPriceReductions());
+            modifiedProduct.setSuppliersList(product.getSuppliersList());
             modifiedProduct.setState(product.getState());
             modifiedProduct.setUser(product.getUser());
             productsServices.update(modifiedProduct);

@@ -22,7 +22,7 @@ public class Suppliers {
     private String supplier;
     @Column(name = "country")
     private String country;
-    @ManyToMany(mappedBy = "suppliersList", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "suppliersList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     @Column(name = "productlist")
     private List<Products> productsList;
