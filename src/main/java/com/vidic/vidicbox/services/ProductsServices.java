@@ -40,6 +40,7 @@ public class ProductsServices {
 
         if(!productToDelete.getSuppliersList().isEmpty()){
             productToDelete.setSuppliersList(null);
+            productsRepository.deleteById(productId);
         }
         productsRepository.deleteById(productId);
     }
